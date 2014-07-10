@@ -71,7 +71,7 @@ sub is_aohos {
     return 0 unless ref($data) eq 'ARRAY';
     for my $i (0..@$data-1) {
         last if defined($max) && $i >= $max;
-        return 0 unless is_hos($data->[$i]);
+        return 0 unless is_hos($data->[$i], {max=>$max});
     }
     1;
 }
