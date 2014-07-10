@@ -43,9 +43,10 @@ sub is_aoaos {
     my $max = $opts->{max};
 
     return 0 unless ref($data) eq 'ARRAY';
+    my $aos_opts = {max=>$max};
     for my $i (0..@$data-1) {
         last if defined($max) && $i >= $max;
-        return 0 unless is_aos($data->[$i], {max=>$max});
+        return 0 unless is_aos($data->[$i], $aos_opts);
     }
     1;
 }
@@ -69,9 +70,10 @@ sub is_aohos {
     my $max = $opts->{max};
 
     return 0 unless ref($data) eq 'ARRAY';
+    my $hos_opts = {max=>$max};
     for my $i (0..@$data-1) {
         last if defined($max) && $i >= $max;
-        return 0 unless is_hos($data->[$i], {max=>$max});
+        return 0 unless is_hos($data->[$i], $hos_opts);
     }
     1;
 }
