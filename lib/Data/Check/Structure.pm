@@ -1,15 +1,26 @@
 package Data::Check::Structure;
 
+# DATE
+# VERSION
+
 use 5.010001;
 use strict;
 use warnings;
 
 require Exporter;
 our @ISA = qw(Exporter);
-our @EXPORT_OK = qw(is_aos is_aoa is_aoaos is_aoh is_aohos is_hos);
-
-# DATE
-# VERSION
+our @EXPORT_OK = qw(
+                       is_aoa
+                       is_aoaos
+                       is_aoh
+                       is_aohos
+                       is_aos
+                       is_hoa
+                       is_hoaos
+                       is_hoh
+                       is_hohos
+                       is_hos
+               );
 
 sub is_aos {
     my ($data, $opts) = @_;
@@ -88,6 +99,62 @@ sub is_hos {
     for my $k (keys %$data) {
         last if defined($max) && ++$i >= $max;
         return 0 if ref($data->{$k});
+    }
+    1;
+}
+
+sub is_hoa {
+    my ($data, $opts) = @_;
+    $opts //= {};
+    my $max = $opts->{max};
+
+    return 0 unless ref($data) eq 'HASH';
+    my $i = 0;
+    for my $k (keys %$data) {
+        last if defined($max) && ++$i >= $max;
+        return 0 unless ref($data->{$k}) eq 'ARRAY';
+    }
+    1;
+}
+
+sub is_hoaos {
+    my ($data, $opts) = @_;
+    $opts //= {};
+    my $max = $opts->{max};
+
+    return 0 unless ref($data) eq 'HASH';
+    my $i = 0;
+    for my $k (keys %$data) {
+        last if defined($max) && ++$i >= $max;
+        return 0 unless is_aos($data->{$k});
+    }
+    1;
+}
+
+sub is_hoh {
+    my ($data, $opts) = @_;
+    $opts //= {};
+    my $max = $opts->{max};
+
+    return 0 unless ref($data) eq 'HASH';
+    my $i = 0;
+    for my $k (keys %$data) {
+        last if defined($max) && ++$i >= $max;
+        return 0 unless ref($data->{$k}) eq 'HASH';
+    }
+    1;
+}
+
+sub is_hohos {
+    my ($data, $opts) = @_;
+    $opts //= {};
+    my $max = $opts->{max};
+
+    return 0 unless ref($data) eq 'HASH';
+    my $i = 0;
+    for my $k (keys %$data) {
+        last if defined($max) && ++$i >= $max;
+        return 0 unless is_hos($data->{$k});
     }
     1;
 }
@@ -175,6 +242,54 @@ Check that data is a hash of scalars. Examples:
  is_hos({a=>1, b=>2});                         # true
  is_hos({a=>1, b=>[]});                        # false
  is_hos({a=>1, b=>2, c=>3, d=>[]}, {max=>3});  # true (or false, depending on random hash key ordering)
+
+Known options: C<max> (maximum number of items to check, undef means check all
+items).
+
+=head2 is_hoa($data, \%opts) => bool
+
+Check that data is a hash of arrays. Examples:
+
+ is_hoa({}) );       # true
+ is_hoa({a=>[]}) );  # true
+ is_hoa({a=>1}) );   # false
+
+Known options: C<max> (maximum number of items to check, undef means check all
+items).
+
+=head2 is_hoaos($data, \%opts) => bool
+
+Check that data is a hash of arrays of scalars. Examples:
+
+ is_hoaos({}) );         # true
+ is_hoaos({a=>[]}) );    # true
+ is_hoaos({a=>[1]}) );   # true
+ is_hoaos({a=>1}) );     # false
+ is_hoaos({a=>[{}]}) );  # false
+
+Known options: C<max> (maximum number of items to check, undef means check all
+items).
+
+=head2 is_hoh($data, \%opts) => bool
+
+Check that data is a hash of hashes. Examples:
+
+ is_hoh({}) );       # true
+ is_hoh({a=>{}}) );  # true
+ is_hoh({a=>1}) );   # false
+
+Known options: C<max> (maximum number of items to check, undef means check all
+items).
+
+=head2 is_hohos($data, \%opts) => bool
+
+Check that data is a hash of hashes of scalrs. Examples:
+
+ is_hohos({}) );            # true
+ is_hohos({a=>{}}) );       # true
+ is_hohos({a=>{b=>1}}) );   # true
+ is_hohos({a=>1}) );        # false
+ is_hohos({a=>{b=>[]}}) );  # false
 
 Known options: C<max> (maximum number of items to check, undef means check all
 items).
