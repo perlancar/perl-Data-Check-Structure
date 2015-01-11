@@ -174,7 +174,9 @@ and so on.
 
 =head1 FUNCTIONS
 
-=head2 is_aos($data, \%opts) => bool
+None exported by default, but they are exportable.
+
+=head2 is_aos($data[, \%opts]) => bool
 
 Check that data is an array of scalars. Examples:
 
@@ -186,7 +188,7 @@ Check that data is an array of scalars. Examples:
 Known options: C<max> (maximum number of items to check, undef means check all
 items).
 
-=head2 is_aoa($data, \%opts) => bool
+=head2 is_aoa($data[, \%opts]) => bool
 
 Check that data is an array of arrays. Examples:
 
@@ -198,7 +200,7 @@ Check that data is an array of arrays. Examples:
 Known options: C<max> (maximum number of items to check, undef means check all
 items).
 
-=head2 is_aoaos($data, \%opts) => bool
+=head2 is_aoaos($data[, \%opts]) => bool
 
 Check that data is an array of arrays of scalars. Examples:
 
@@ -210,7 +212,7 @@ Check that data is an array of arrays of scalars. Examples:
 Known options: C<max> (maximum number of items to check, undef means check all
 items).
 
-=head2 is_aoh($data, \%opts) => bool
+=head2 is_aoh($data[, \%opts]) => bool
 
 Check that data is an array of hashes. Examples:
 
@@ -222,7 +224,7 @@ Check that data is an array of hashes. Examples:
 Known options: C<max> (maximum number of items to check, undef means check all
 items).
 
-=head2 is_aohos($data, \%opts) => bool
+=head2 is_aohos($data[, \%opts]) => bool
 
 Check that data is an array of hashes of scalars. Examples:
 
@@ -234,7 +236,7 @@ Check that data is an array of hashes of scalars. Examples:
 Known options: C<max> (maximum number of items to check, undef means check all
 items).
 
-=head2 is_hos($data, \%opts) => bool
+=head2 is_hos($data[, \%opts]) => bool
 
 Check that data is a hash of scalars. Examples:
 
@@ -246,7 +248,7 @@ Check that data is a hash of scalars. Examples:
 Known options: C<max> (maximum number of items to check, undef means check all
 items).
 
-=head2 is_hoa($data, \%opts) => bool
+=head2 is_hoa($data[, \%opts]) => bool
 
 Check that data is a hash of arrays. Examples:
 
@@ -257,7 +259,7 @@ Check that data is a hash of arrays. Examples:
 Known options: C<max> (maximum number of items to check, undef means check all
 items).
 
-=head2 is_hoaos($data, \%opts) => bool
+=head2 is_hoaos($data[, \%opts]) => bool
 
 Check that data is a hash of arrays of scalars. Examples:
 
@@ -270,7 +272,7 @@ Check that data is a hash of arrays of scalars. Examples:
 Known options: C<max> (maximum number of items to check, undef means check all
 items).
 
-=head2 is_hoh($data, \%opts) => bool
+=head2 is_hoh($data[, \%opts]) => bool
 
 Check that data is a hash of hashes. Examples:
 
@@ -281,7 +283,7 @@ Check that data is a hash of hashes. Examples:
 Known options: C<max> (maximum number of items to check, undef means check all
 items).
 
-=head2 is_hohos($data, \%opts) => bool
+=head2 is_hohos($data[, \%opts]) => bool
 
 Check that data is a hash of hashes of scalrs. Examples:
 
