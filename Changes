@@ -1,5 +1,3 @@
-Revision history for Data-Check-Structure
-
 0.03    2014-07-14 (SHARYANTO)
 
         - Add functions: is_hoa, is_hoaos, is_hoh, is_hohos.
