@@ -1,3 +1,11 @@
+0.04    2017-07-18 (PERLANCAR)
+
+	- No functional changes.
+
+	- Allow running in perl < 5.10, improve startup overhead by not
+	  using warnings.
+
+
 0.03    2014-07-14 (SHARYANTO)
 
         - Add functions: is_hoa, is_hoaos, is_hoh, is_hohos.
