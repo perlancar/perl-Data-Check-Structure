@@ -3,12 +3,10 @@ package Data::Check::Structure;
 # DATE
 # VERSION
 
-use 5.010001;
 use strict;
-use warnings;
+#use warnings;
 
-require Exporter;
-our @ISA = qw(Exporter);
+use Exporter 'import';
 our @EXPORT_OK = qw(
                        is_aoa
                        is_aoaos
@@ -24,7 +22,7 @@ our @EXPORT_OK = qw(
 
 sub is_aos {
     my ($data, $opts) = @_;
-    $opts //= {};
+    $opts ||= {};
     my $max = $opts->{max};
 
     return 0 unless ref($data) eq 'ARRAY';
@@ -37,7 +35,7 @@ sub is_aos {
 
 sub is_aoa {
     my ($data, $opts) = @_;
-    $opts //= {};
+    $opts ||= {};
     my $max = $opts->{max};
 
     return 0 unless ref($data) eq 'ARRAY';
@@ -50,7 +48,7 @@ sub is_aoa {
 
 sub is_aoaos {
     my ($data, $opts) = @_;
-    $opts //= {};
+    $opts ||= {};
     my $max = $opts->{max};
 
     return 0 unless ref($data) eq 'ARRAY';
@@ -64,7 +62,7 @@ sub is_aoaos {
 
 sub is_aoh {
     my ($data, $opts) = @_;
-    $opts //= {};
+    $opts ||= {};
     my $max = $opts->{max};
 
     return 0 unless ref($data) eq 'ARRAY';
@@ -77,7 +75,7 @@ sub is_aoh {
 
 sub is_aohos {
     my ($data, $opts) = @_;
-    $opts //= {};
+    $opts ||= {};
     my $max = $opts->{max};
 
     return 0 unless ref($data) eq 'ARRAY';
@@ -91,7 +89,7 @@ sub is_aohos {
 
 sub is_hos {
     my ($data, $opts) = @_;
-    $opts //= {};
+    $opts ||= {};
     my $max = $opts->{max};
 
     return 0 unless ref($data) eq 'HASH';
@@ -105,7 +103,7 @@ sub is_hos {
 
 sub is_hoa {
     my ($data, $opts) = @_;
-    $opts //= {};
+    $opts ||= {};
     my $max = $opts->{max};
 
     return 0 unless ref($data) eq 'HASH';
@@ -119,7 +117,7 @@ sub is_hoa {
 
 sub is_hoaos {
     my ($data, $opts) = @_;
-    $opts //= {};
+    $opts ||= {};
     my $max = $opts->{max};
 
     return 0 unless ref($data) eq 'HASH';
@@ -133,7 +131,7 @@ sub is_hoaos {
 
 sub is_hoh {
     my ($data, $opts) = @_;
-    $opts //= {};
+    $opts ||= {};
     my $max = $opts->{max};
 
     return 0 unless ref($data) eq 'HASH';
@@ -147,7 +145,7 @@ sub is_hoh {
 
 sub is_hohos {
     my ($data, $opts) = @_;
-    $opts //= {};
+    $opts ||= {};
     my $max = $opts->{max};
 
     return 0 unless ref($data) eq 'HASH';
