@@ -1,3 +1,8 @@
+0.050   2020-11-08  Released-By: PERLANCAR; Urgency: medium
+
+	- [ux] Set $errstr for more details.
+
+
 0.04    2017-07-18  Released-By: PERLANCAR
 
 	- No functional changes.
@@ -22,4 +27,3 @@
 
         - First release, first released when writing formatter for
           Perinci::CmdLine::Lite.
-
