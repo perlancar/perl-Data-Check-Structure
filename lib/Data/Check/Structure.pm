@@ -1,6 +1,8 @@
 package Data::Check::Structure;
 
+# AUTHORITY
 # DATE
+# DIST
 # VERSION
 
 use strict;
@@ -20,6 +22,8 @@ our @EXPORT_OK = qw(
                        is_hos
                );
 
+our $errstr = '';
+
 sub is_aos {
     my ($data, $opts) = @_;
     $opts ||= {};
@@ -28,8 +32,10 @@ sub is_aos {
     return 0 unless ref($data) eq 'ARRAY';
     for my $i (0..@$data-1) {
         last if defined($max) && $i >= $max;
-        return 0 if ref($data->[$i]);
+        my $ref = ref($data->[$i]);
+        do { $errstr = "not aos: array element [$i] not scalar ($ref)"; return 0 } if $ref;
     }
+    $errstr = '';
     1;
 }
 
@@ -41,8 +47,10 @@ sub is_aoa {
     return 0 unless ref($data) eq 'ARRAY';
     for my $i (0..@$data-1) {
         last if defined($max) && $i >= $max;
-        return 0 unless ref($data->[$i]) eq 'ARRAY';
+        my $ref = ref($data->[$i]);
+        do { $errstr = "not aoa: array element [$i] not array ($ref)"; return 0 } unless $ref eq 'ARRAY';
     }
+    $errstr = '';
     1;
 }
 
@@ -55,8 +63,9 @@ sub is_aoaos {
     my $aos_opts = {max=>$max};
     for my $i (0..@$data-1) {
         last if defined($max) && $i >= $max;
-        return 0 unless is_aos($data->[$i], $aos_opts);
+        do { $errstr = "not aoaos: element [$i]".($errstr ? ": $errstr" : " not aos"); return 0 } unless is_aos($data->[$i], $aos_opts);
     }
+    $errstr = '';
     1;
 }
 
@@ -68,8 +77,10 @@ sub is_aoh {
     return 0 unless ref($data) eq 'ARRAY';
     for my $i (0..@$data-1) {
         last if defined($max) && $i >= $max;
-        return 0 unless ref($data->[$i]) eq 'HASH';
+        my $ref = ref($data->[$i]);
+        do { $errstr = "not aoh: element [$i] not hash ($ref)"; return 0 } unless $ref eq 'HASH';
     }
+    $errstr = '';
     1;
 }
 
@@ -82,8 +93,9 @@ sub is_aohos {
     my $hos_opts = {max=>$max};
     for my $i (0..@$data-1) {
         last if defined($max) && $i >= $max;
-        return 0 unless is_hos($data->[$i], $hos_opts);
+        do { $errstr = "not aohos: element [$i]".($errstr ? ": $errstr" : " not hos"); return 0 } unless is_hos($data->[$i], $hos_opts);
     }
+    $errstr = '';
     1;
 }
 
@@ -96,8 +108,10 @@ sub is_hos {
     my $i = 0;
     for my $k (keys %$data) {
         last if defined($max) && ++$i >= $max;
-        return 0 if ref($data->{$k});
+        my $ref = ref($data->{$k});
+        do { $errstr = "not hos: value for key '$k' not scalar ($ref)"; return 0 } if $ref;
     }
+    $errstr = '';
     1;
 }
 
@@ -110,8 +124,10 @@ sub is_hoa {
     my $i = 0;
     for my $k (keys %$data) {
         last if defined($max) && ++$i >= $max;
-        return 0 unless ref($data->{$k}) eq 'ARRAY';
+        my $ref = ref($data->{$k});
+        do { $errstr = "not hoa: value for key '$k' not array ($ref)"; return 0 } unless $ref eq 'ARRAY';
     }
+    $errstr = '';
     1;
 }
 
@@ -124,8 +140,9 @@ sub is_hoaos {
     my $i = 0;
     for my $k (keys %$data) {
         last if defined($max) && ++$i >= $max;
-        return 0 unless is_aos($data->{$k});
+        do { $errstr = "not hoaos: value for key '$k'".($errstr ? ": $errstr" : " not aos"); return 0 } unless is_aos($data->{$k});
     }
+    $errstr = '';
     1;
 }
 
@@ -138,8 +155,10 @@ sub is_hoh {
     my $i = 0;
     for my $k (keys %$data) {
         last if defined($max) && ++$i >= $max;
-        return 0 unless ref($data->{$k}) eq 'HASH';
+        my $ref = ref($data->{$k});
+        do { $errstr = "not hoh: value for key '$k' not hash ($ref)"; return 0 } unless $ref eq 'HASH';
     }
+    $errstr = '';
     1;
 }
 
@@ -152,8 +171,9 @@ sub is_hohos {
     my $i = 0;
     for my $k (keys %$data) {
         last if defined($max) && ++$i >= $max;
-        return 0 unless is_hos($data->{$k});
+        do { $errstr = "not hohos: value for key '$k'".($errstr ? ": $errstr" : " not hos"); return 0 } unless is_hos($data->{$k});
     }
+    $errstr = '';
     1;
 }
 
