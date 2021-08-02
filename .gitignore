@@ -2,3 +2,4 @@ Data-Check-Structure-*
 .build
 *~
 nytprof*
+.DS_Store
